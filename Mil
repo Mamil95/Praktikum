@@ -1,0 +1,64 @@
+class Buku:
+    def __init__(self, judul, pengarang, tahun_terbit, jumlah_stok):
+        self.judul = judul
+        self.pengarang = pengarang
+        self.tahun_terbit = tahun_terbit
+        self.jumlah_stok = jumlah_stok
+
+    def pinjam(self):
+        if self.jumlah_stok > 0:
+            self.jumlah_stok -= 1
+            print("Buku berhasil dipinjam.")
+        else:
+            print("Stok buku habis.")
+
+    def kembalikan(self):
+        self.jumlah_stok += 1
+        print("Buku berhasil dikembalikan.")
+
+daftar_buku = []
+id_buku = 1  # Untuk memberikan ID unik pada setiap buku
+
+def tambah_buku():
+    judul = input("Masukkan judul buku: ")
+    pengarang = input("Masukkan pengarang: ")
+    tahun_terbit = int(input("Masukkan tahun terbit: "))
+    jumlah_stok = int(input("Masukkan jumlah stok: "))
+    buku_baru = Buku(judul, pengarang, tahun_terbit, jumlah_stok)
+    daftar_buku.append(buku_baru)
+    print("Buku berhasil ditambahkan.")
+
+def tampilkan_semua_buku():
+    if not daftar_buku:
+        print("Tidak ada buku dalam daftar.")
+    else:
+        for buku in daftar_buku:
+            print(f"ID: {id_buku}, Judul: {buku.judul}, Pengarang: {buku.pengarang}, Tahun Terbit: {buku.tahun_terbit}, Stok: {buku.jumlah_stok}")
+            id_buku += 1
+
+def cari_buku(judul):
+    for buku in daftar_buku:
+        if buku.judul.lower() == judul.lower():
+            print(f"Buku ditemukan:\nJudul: {buku.judul}\nPengarang: {buku.pengarang}\nTahun Terbit: {buku.tahun_terbit}\nStok: {buku.jumlah_stok}")
+            return
+    print("Buku tidak ditemukan.")
+
+while True:
+    print("\nMenu:")
+    print("1. Tambah buku")
+    print("2. Tampilkan semua buku")
+    print("3. Cari buku")
+    print("4. Keluar")
+    pilihan = input("Pilih menu: ")
+
+    if pilihan == '1':
+        tambah_buku()
+    elif pilihan == '2':
+        tampilkan_semua_buku()
+    elif pilihan == '3':
+        judul = input("Masukkan judul buku yang ingin dicari: ")
+        cari_buku(judul)
+    elif pilihan == '4':
+        break
+    else:
+        print("Pilihan tidak valid.")
